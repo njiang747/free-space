@@ -8,8 +8,40 @@
   </div>
   <div class="container">
   </div>
+{{> addLibraryForm}}
+
+  
   <footer>
     <hr />
     Free-Space was created by: Nick Jiang, Vincent Po, Erica Wu, 2016.
   </footer>
 </body>
+
+<template name="addLibraryForm">
+    <form class="newLibrary">
+      <input type="text" placeholder="library name" name="libraryName">
+      <input type="number" placeholder= "# open sensors" name="openNumLibrary">
+      <input type="number" placeholder= "# total sensors" name="totalNumLibrary">
+      <input type="submit" class="newLibrary" value="Submit new library">
+    </form>
+
+    <form class="newFloor">
+      <input type="text" placeholder="library name" name="libraryName">
+      <input type="number" placeholder="floor #" name="floorNum">
+      <input type="number" placeholder= "# open sensors on floor" name="openNumFloor">
+      <input type="number" placeholder= "# total sensors on floor" name="totalNumFloor">
+      <input type="text" placeholder= "image name" name="mapImage">
+      <input type="submit" value="Submit new floor">
+    </form>
+
+    <form class="newSensor">
+      <input type="text" placeholder= "sensor name" name="sensorName">
+      <input type="text" placeholder= "sensor status" name="sensorStatus">
+      <input type="text" placeholder= "last used" name="lastUsed">
+      <input type="text" placeholder= "last checked" name="lastChecked">
+      <input type="number" placeholder= "x position" name="xPosition">
+      <input type="number" placeholder= "y position" name="yPosition">
+      <input type="text" placeholder= "marker image" name="markerImage">
+      <input type="submit" value="Submit">
+    </form>
+  </template>
