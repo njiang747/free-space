@@ -3,11 +3,13 @@ LocationList = new Mongo.Collection("locations");
 FloorList = new Mongo.Collection("floors");
 
 if (Meteor.isClient) {
-
+	Session.setDefault('selectedLocation', 'Firestone Library');
+	Session.setDefault('selectedFloor', 'Floor 1');
+	
 	Template.body.helpers({
 		floors: function() {
-			var library = "Firestone Library";
-			return FloorList.find({library: library}, {sort: {floor: -1}});
+			var location = Session.get('selectedLocation');
+			return FloorList.find({location: location}, {sort: {floor: -1}});
 		}
 	})
 
@@ -33,27 +35,27 @@ if (Meteor.isClient) {
 		}
 	})
 
-	Template.addLibraryForm.events({
-		'submit .newLibrary': function(event) {
+	Template.addLocationForm.events({
+		'submit .newLocation': function(event) {
 			event.preventDefault();
-			var libraryName = event.target.libraryName.value;
-			var openNumLibrary = event.target.openNumLibrary.value;
-			var totalNumLibrary = event.target.totalNumLibrary.value;
+			var locationName = event.target.locationName.value;
+			var openNumLocation = event.target.openNumLocation.value;
+			var totalNumLocation = event.target.totalNumLocation.value;
 			LocationList.insert({
-				library: libraryName,
-				openNum: openNumLibrary,
-				totalNum: totalNumLibrary
+				location: locationName,
+				openNum: openNumLocation,
+				totalNum: totalNumLocation
 			})
 		},
 
 		'submit .newFloor': function(event) {	
-			var libraryName = event.target.libraryName.value;
+			var locationName = event.target.locationName.value;
 			var floorName = event.target.floorName.value;
 			var openNumFloor = event.target.openNumFloor.value;
 			var totalNumFloor = event.target.totalNumFloor.value;
 			var mapImage = event.target.mapImage.value;
 			FloorList.insert({
-				library: libraryName,
+				location: locationName,
 				floor: floorName,
 				openNum: openNumFloor,
 				totalNum: totalNumFloor,
@@ -62,7 +64,7 @@ if (Meteor.isClient) {
 		},
 
 		'submit .newSensor': function(event) {
-			var libraryName = event.target.libraryName.value;
+			var locationName = event.target.locationName.value;
 			var floorName = event.target.floorName.value;
 			var sensorName = event.target.sensorName.value;
 			var sensorStatus = event.target.sensorStatus.value;
@@ -72,7 +74,7 @@ if (Meteor.isClient) {
 			var yPosition = event.target.yPosition.value;
 			var markerImage = event.target.markerImage.value;
 			SensorList.insert({
-				library: libraryName,
+				location: locationName,
 				floor: floorName,
 				sensor: sensorName,
 				status: sensorStatus,

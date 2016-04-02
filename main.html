@@ -4,7 +4,7 @@
 
 <body>
   <div class="title-bar">
-    <span>Firestone Library</span>
+    <span>Firestone Location</span>
     <span class="logo">FREE-SPACE</span>
   </div>
   <div class="main-space">
@@ -19,7 +19,7 @@
     <span class="stats">
     </span>
   </div>
-  {{> addLibraryForm}}
+  {{> addLocationForm}}
 </body>
 
 <template name="tab">
@@ -29,16 +29,16 @@
   </div>
 </template>
 
-<template name="addLibraryForm">
-    <form class="newLibrary">
-      <input type="text" placeholder="library name" name="libraryName">
-      <input type="number" placeholder="# open sensors" name="openNumLibrary">
-      <input type="number" placeholder="# total sensors" name="totalNumLibrary">
-      <input type="submit" class="newLibrary" value="Submit new library">
+<template name="addLocationForm">
+    <form class="newLocation">
+      <input type="text" placeholder="location name" name="locationName">
+      <input type="number" placeholder="# open sensors" name="openNumLocation">
+      <input type="number" placeholder="# total sensors" name="totalNumLocation">
+      <input type="submit" class="newLocation" value="Submit new location">
     </form>
 
     <form class="newFloor">
-      <input type="text" placeholder="library name" name="libraryName">
+      <input type="text" placeholder="location name" name="locationName">
       <input type="text" placeholder="floor name" name="floorName">
       <input type="number" placeholder="# open sensors on floor" name="openNumFloor">
       <input type="number" placeholder="# total sensors on floor" name="totalNumFloor">
@@ -47,7 +47,7 @@
     </form>
 
     <form class="newSensor">
-      <input type="text" placeholder="library name" name="libraryName">
+      <input type="text" placeholder="location name" name="locationName">
       <input type="text" placeholder="floor name" name="floorName">
       <input type="text" placeholder="sensor name" name="sensorName">
       <input type="number" placeholder="sensor status" name="sensorStatus">
