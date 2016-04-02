@@ -1,11 +1,6 @@
 SensorList = new Mongo.Collection("sensors");
 LocationList = new Mongo.Collection("locations");
 FloorList = new Mongo.Collection("floors");
-/*
-Locations = new Mongo.Collection("locations");
-Floors = new Mongo.Collection("floors");
-Sensors = new Mongo.Collection("sensors");
-*/
 
 if (Meteor.isClient) {
 
@@ -14,8 +9,17 @@ if (Meteor.isClient) {
 			console.log("(" + event.clientX + "," + event.clientY + ")");
 		}
 	});
+	
+	Template.tab.events({
+		'click .tabs': function(event) {
+			console.log("hi");
+		}
+	})
 
 	Template.addLibraryForm.events({
+
+		
+
 		'submit .newLibrary': function(event) {
 			event.preventDefault();
 			var libraryName = event.target.libraryName.value;
