@@ -1,20 +1,18 @@
 .title-bar {
   width: 100% - 40px;
   padding: 7px 20px 7px 20px;
-  background: #B6D53B;
+  background: #BA4141;
+  color: #000000;
 }
-.title-bar a {
+.title-bar span {
   cursor: pointer;
   font-family: Futura, “Trebuchet MS”, Arial, sans-serif;
   font-weight: bold;
-  text-decoration: none;
 }
-.title-bar a:link, .title-bar a:visited, .title-bar a:hover, .title-bar a:active { color: #000000; }
-.title-bar .login-buttons-dropdown-align- {
+.title-bar .logo {
   float: right;
   font-family: Futura, “Trebuchet MS”, Arial, sans-serif;
   font-weight: bold;
-  color: #000000;
 }
 
 body {
@@ -22,7 +20,7 @@ body {
   margin: 0;
   font-family: sans-serif;
   font-size: 16px;
-  background: #333333;
+  background: #FFFFFF;
 }
 
 footer {
@@ -33,114 +31,5 @@ footer {
   font-family: sans-serif;
   font-size: 0.6em;
   text-align: right;
-  color: #FFFFFF;
-}
-
-.container {
-  margin: 0 auto;
-  max-width: 800px;
-  min-height: 100px;
-}
-
-.container2 {
-  max-width: 100%;
-  height: 600px;
-  overflow-y: scroll;
-}
-
-header {
-  padding: 20px 15px 15px 15px;
-  position: relative;
-}
-
-h1 {
-  font-size: 2em;
-  margin: 0;
-  margin-bottom: 10px;
-  margin-right: 1em;
-  display: inline-block;
-  color: #EEEEEE;
-}
-
-button {
-  cursor: pointer;
-  background: transparent;
-  color: #FFFFFF;
-  font-weight: bold;
-  font-size: 1em;
-  border: none;
-  outline: none;
-}
-
-.submit {
-  cursor: pointer;
-  background: #777777;
-  color: #FFF;
-  font-weight: bold;
-  font-size: 1em;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-}
-
-.new-question input[type="text"] {
-  padding: 10px 0;
-  background: transparent;
-  border: none;
-  width: 60%;
-  padding-right: 80px;
-  font-size: 1em;
-  border-bottom: #EEEEEE 1px solid;
-  color: #FFFFFF;
-}
-
-.new-question input:focus{
-  outline: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  background: #FAFAFA;
-  position: relative;
-  list-style: none;
-  padding: 15px;
-  border-bottom: #333333 solid 2px;
-}
-
-li .infoContainer {
-  width: 75%;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-li .scoreContainer {
-  margin-left: 10%;
-  display: inline-block;
-  background: #777777;
-  padding: 5px;
-  border: none;
-  border-radius: 4px;
-  vertical-align: middle;
-}
-
-li .value {
-  color: #FFFFFF;
-  text-align: center;
-  display: inline-block;
-  width: 20px;
-}
-
-li .text {
-  display: inline-block;
-  margin-left: 10px;
-}
-
-li .dateText {
-  margin-top: 1px;
-  margin-left: 20px;
-  font-size: 0.6em;
+  color: #000000;
 }

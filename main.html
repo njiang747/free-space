@@ -1,54 +1,15 @@
-<template name="main">
-    <div class = "title-bar">
-      <a href="{{pathFor route='home'}}">KWERI</a>
-    </div>
-    {{> yield}}
-    <footer>
-      <hr />
-      Kweri was created by: Jonathan Zhang, Nick Jiang, Susan Wang, Erica Wu, Jonathan Yu, 2016.
-    </footer>
-</template>
-
 <head>
-  <title>Kweri</title>
+  <title>Free-Space</title>
 </head>
 <body>
+  <div class = "title-bar">
+    <span>Firestone Library</span>
+    <span class="logo">FREE-SPACE</span>
+  </div>
   <div class="container">
-    <header>
-      <h1>Questions</h1>
-      {{> questionbox}}
-    </header>
-    {{> questionlist}}
   </div>
+  <footer>
+    <hr />
+    Free-Space was created by: Nick Jiang, Vincent Po, Erica Wu, 2016.
+  </footer>
 </body>
-
-<template name="questionbox">
-  <form class="new-question">
-    <input type="text" name="qText" placeholder="Post new question">
-    <input type="submit" class="submit" value="submit">
-  </form>
-</template>
-
-<template name="questionlist">
-  <div class="container2">
-    <ul>
-      {{#each questions}}
-        {{> question}}
-      {{/each}}
-    </ul>
-  </div>
-</template>
-
-<template name="question">
-  <li>
-    <div class = "infoContainer">
-      <div class="text">{{qText}}</div>
-      <div class="dateText">{{createdAtToString}}</div>
-    </div>
-    <div class="scoreContainer">
-      <button class="arrowDown">&lt;</button>
-      <span class="value">{{value}}</span>
-      <button class="arrowUp">&gt;</button>
-    </div>
-  </li>
-</template>
