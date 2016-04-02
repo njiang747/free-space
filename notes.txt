@@ -1,0 +1,23 @@
+Location Database:
+Location name: (Firestone, Woolworth, etc.)
+Location_id: (L7R9890FUE)
+Open Sensor Number: (15, etc.)
+Total Sensor Number: (32, etc.)
+
+Floor Database:
+Floor name: (Floor 1, Floor 2, etc.)
+Floor_id: (FUR56Q2N8D)
+Location_id: (L7R9890FUE)
+Background Image File: (Floor1.png, etc.)
+Open Sensor Number: (5, etc.)
+Total Sensor Number: (15, etc.)
+
+Sensor Database:
+Sensor name: (Sensor 1, etc.)
+Floor_id: (FUR56Q2N8D)
+Location_id: (L7R9890FUE)
+Status: (Free, In-use)
+Last-Used: (1 hr ago, etc.)
+Last-Check: (5 mins ago, etc.)
+Position on Image: (x,y)
+Marker Image: (Light, Speaker, etc.)
