@@ -4,6 +4,13 @@ FloorList = new Mongo.Collection("floors");
 
 if (Meteor.isClient) {
 
+	Template.body.helpers({
+		floors: function(event) {
+			var library = "Firestone Library"
+			return FloorList.find({library: library}, {sort: {floor: -1}})
+		}
+	})
+
 	Template.body.events({
 		'click .map': function(event) {
 			console.log("(" + event.clientX + "," + event.clientY + ")");
@@ -17,9 +24,6 @@ if (Meteor.isClient) {
 	})
 
 	Template.addLibraryForm.events({
-
-		
-
 		'submit .newLibrary': function(event) {
 			event.preventDefault();
 			var libraryName = event.target.libraryName.value;
@@ -40,7 +44,7 @@ if (Meteor.isClient) {
 			var mapImage = event.target.mapImage.value;
 			FloorList.insert({
 				library: libraryName,
-				floorName: floorName,
+				floor: floorName,
 				openNum: openNumFloor,
 				totalNum: totalNumFloor,
 				map: mapImage
@@ -59,7 +63,7 @@ if (Meteor.isClient) {
 			var markerImage = event.target.markerImage.value;
 			SensorList.insert({
 				library: libraryName,
-				floorName: floorName,
+				floor: floorName,
 				sensor: sensorName,
 				status: sensorStatus,
 				lastUsed: lUsed,
