@@ -9,7 +9,7 @@ if (Meteor.isClient) {
 	Template.header.helpers({
 		location: function() {
 			var location = Session.get('selectedLocation');
-			return LocationList.findOne({'library': location});
+			return LocationList.findOne({'location': location});
 		}
 	})
 	

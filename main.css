@@ -39,6 +39,7 @@ body {
 
 .tabs {
   float: left;
+  min-width: 56px;
   width: 7%;
   height: 100%;
   display: block;
@@ -90,18 +91,18 @@ body {
   box-sizing: border-box; 
   width: 75%;
   height: 100%;
+  text-align: center;
   display: block;
   background: #0000FF;
   border-top: #222222 1px solid;
   border-right: #222222 2px solid;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .map .map-image {
   width: auto;
-  height: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .stats {
