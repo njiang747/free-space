@@ -1,25 +1,54 @@
-<head>
-  <title>simple</title>
-</head>
-
-<body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
-  {{> info}}
-</body>
-
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="main">
+    <div class = "title-bar">
+      <a href="{{pathFor route='home'}}">KWERI</a>
+    </div>
+    {{> yield}}
+    <footer>
+      <hr />
+      Kweri was created by: Jonathan Zhang, Nick Jiang, Susan Wang, Erica Wu, Jonathan Yu, 2016.
+    </footer>
 </template>
 
-<template name="info">
-  <h2>Learn Meteor!</h2>
-  <ul>
-    <li><a href="https://www.meteor.com/try">Do the Tutorial</a></li>
-    <li><a href="http://guide.meteor.com">Follow the Guide</a></li>
-    <li><a href="https://docs.meteor.com">Read the Docs</a></li>
-    <li><a href="https://forums.meteor.com">Discussions</a></li>
-  </ul>
+<head>
+  <title>Kweri</title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Questions</h1>
+      {{> questionbox}}
+    </header>
+    {{> questionlist}}
+  </div>
+</body>
+
+<template name="questionbox">
+  <form class="new-question">
+    <input type="text" name="qText" placeholder="Post new question">
+    <input type="submit" class="submit" value="submit">
+  </form>
+</template>
+
+<template name="questionlist">
+  <div class="container2">
+    <ul>
+      {{#each questions}}
+        {{> question}}
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name="question">
+  <li>
+    <div class = "infoContainer">
+      <div class="text">{{qText}}</div>
+      <div class="dateText">{{createdAtToString}}</div>
+    </div>
+    <div class="scoreContainer">
+      <button class="arrowDown">&lt;</button>
+      <span class="value">{{value}}</span>
+      <button class="arrowUp">&gt;</button>
+    </div>
+  </li>
 </template>
