@@ -16,7 +16,7 @@ if (Meteor.isClient) {
 	Template.body.helpers({
 		floors: function() {
 			var location = Session.get('selectedLocation');
-			return FloorList.find({location: location}, {sort: {floor: -1}});
+			return FloorList.find({location: location}, {sort: {level: -1}});
 		},
 		map_image: function() {
 			var floor = FloorList.findOne({'floor': Session.get('selectedFloor')});
@@ -46,6 +46,8 @@ if (Meteor.isClient) {
 		}
 	})
 
+	// Update once every X minutes, update sensors -> floors -> location
+
 	Template.addLocationForm.events({
 		'submit .newLocation': function(event) {
 			event.preventDefault();
@@ -63,12 +65,14 @@ if (Meteor.isClient) {
 		'submit .newFloor': function(event) {	
 			var locationName = event.target.locationName.value;
 			var floorName = event.target.floorName.value;
+			var level = parseInt(event.target.level.value,10);
 			var openNumFloor = event.target.openNumFloor.value;
 			var totalNumFloor = event.target.totalNumFloor.value;
 			var mapImage = event.target.mapImage.value;
 			FloorList.insert({
 				location: locationName,
 				floor: floorName,
+				level: level,
 				openNum: openNumFloor,
 				totalNum: totalNumFloor,
 				map: mapImage
