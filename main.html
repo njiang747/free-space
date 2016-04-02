@@ -14,7 +14,7 @@
       {{/each}}
     </span>
     <span class="map">
-      <!--<img src="/firestone2map.png">-->
+      <img class="map-image" src="/{{map_image}}">
     </span>
     <span class="stats">
     </span>
@@ -24,7 +24,7 @@
 
 <template name="header">
   <div class="title-bar">
-    <span>{{location.library}}</span>
+    <span>{{location.location}}</span>
     <div class="fraction">{{location.openNum}}/{{location.totalNum}} open</div>
   </div>
 </template>

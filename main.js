@@ -9,7 +9,7 @@ if (Meteor.isClient) {
 	Template.header.helpers({
 		location: function() {
 			var location = Session.get('selectedLocation');
-			return LocationList.findOne({"library": location});
+			return LocationList.findOne({'library': location});
 		}
 	})
 	
@@ -17,6 +17,10 @@ if (Meteor.isClient) {
 		floors: function() {
 			var location = Session.get('selectedLocation');
 			return FloorList.find({location: location}, {sort: {floor: -1}});
+		},
+		map_image: function() {
+			var floor = FloorList.findOne({'floor': Session.get('selectedFloor')});
+			return floor.map;
 		}
 	})
 

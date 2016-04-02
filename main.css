@@ -91,13 +91,17 @@ body {
   width: 75%;
   height: 100%;
   display: block;
-  background: #FFFFFF;
+  background: #0000FF;
   border-top: #222222 1px solid;
   border-right: #222222 2px solid;
-  background-image: url("/firestone2map.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.map .map-image {
+  width: auto;
+  height: 100%;
 }
 
 .stats {
