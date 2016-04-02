@@ -4,7 +4,7 @@
 
 <body>
   <div class="title-bar">
-    <span>Firestone Location</span>
+    <span>{{> header}}</span>
     <span class="logo">FREE-SPACE</span>
   </div>
   <div class="main-space">
@@ -21,6 +21,13 @@
   </div>
   {{> addLocationForm}}
 </body>
+
+<template name="header">
+  <div class="title-bar">
+    <span>{{location.library}}</span>
+    <div class="fraction">{{location.openNum}}/{{location.totalNum}} open</div>
+  </div>
+</template>
 
 <template name="tab">
   <div class="tab_{{selected_floor}}">

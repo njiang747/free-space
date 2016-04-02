@@ -5,6 +5,13 @@ FloorList = new Mongo.Collection("floors");
 if (Meteor.isClient) {
 	Session.setDefault('selectedLocation', 'Firestone Library');
 	Session.setDefault('selectedFloor', 'Floor 1');
+
+	Template.header.helpers({
+		location: function() {
+			var location = Session.get('selectedLocation');
+			return LocationList.findOne({"library": location});
+		}
+	})
 	
 	Template.body.helpers({
 		floors: function() {
