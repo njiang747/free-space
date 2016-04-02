@@ -1,15 +1,45 @@
 <head>
   <title>Free-Space</title>
 </head>
+
 <body>
-  <div class = "title-bar">
+  <div class="title-bar">
     <span>Firestone Library</span>
     <span class="logo">FREE-SPACE</span>
   </div>
-  <div class="container">
+  <div class="main-space">
+    <span class="tabs">
+      <div class="tab_unselected">
+        <div class="floor">Floor 1</div>
+        <div class="fraction">10/17 open</div>
+      </div>
+      <div class="tab_selected">
+        <div class="floor">Floor 2</div>
+        <div class="fraction">5/12 open</div>
+      </div>
+      <div class="tab_unselected">
+        <div class="floor">Floor 3</div>
+        <div class="fraction">6/7 open</div>
+      </div>
+      {{#each floors}}
+        {{> tab}}
+      {{/each}}
+    </span><span class="map">
+    </span><span class="stats">
+    </span>
   </div>
-  <footer>
-    <hr />
-    Free-Space was created by: Nick Jiang, Vincent Po, Erica Wu, 2016.
-  </footer>
 </body>
+
+<template name="tab">
+  {{#if selected}}
+    <div class="tab_selected">
+      <div class="floor">{{floorName}}</div>
+      <div class="fraction">{{fraction}}</div>
+    </div>
+  {{else}}
+    <div class="tab_unselected">
+      <div class="floor">{{floorName}}</div>
+      <div class="fraction">{{fraction}}</div>
+    </div>
+  {{/if}}
+</template>
