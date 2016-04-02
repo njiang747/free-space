@@ -46,6 +46,7 @@ if (Meteor.isClient) {
 				openNum: openNumLocation,
 				totalNum: totalNumLocation
 			})
+			return false;
 		},
 
 		'submit .newFloor': function(event) {	
@@ -61,6 +62,7 @@ if (Meteor.isClient) {
 				totalNum: totalNumFloor,
 				map: mapImage
 			})
+			return false;
 		},
 
 		'submit .newSensor': function(event) {
@@ -84,6 +86,7 @@ if (Meteor.isClient) {
 				yPos: yPosition,
 				image: markerImage
 			})
+			return false;
 		}
 	});
 }
