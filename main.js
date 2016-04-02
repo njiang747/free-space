@@ -1,10 +1,30 @@
-SensorList = new Mongo.Collection("sensors");
 LocationList = new Mongo.Collection("locations");
 FloorList = new Mongo.Collection("floors");
+SensorList = new Mongo.Collection("sensors");
+
+update = function() {
+	var locCursor = LocationList.find({location: "Firestone Library"});
+	var loc = locCursor.fetch();
+	locCursor.forEach(function (loc) {
+		var openNum = 0;
+		var totalNum = 0;
+		FloorList.find({location: loc.location}).
+		forEach(function (floor) {
+			openNum += floor.openNum;
+			totalNum += floor.totalNum;
+		});
+		LocationList.update(loc._id, {
+			$set: {openNum: openNum, totalNum: totalNum}
+		});
+	});
+}
 
 if (Meteor.isClient) {
 	Session.setDefault('selectedLocation', 'Firestone Library');
 	Session.setDefault('selectedFloor', 'Floor 1');
+	setInterval(function() {
+		update();
+	}, 10000);
 
 	Template.header.helpers({
 		location: function() {
@@ -56,8 +76,8 @@ if (Meteor.isClient) {
 			var totalNumLocation = event.target.totalNumLocation.value;
 			LocationList.insert({
 				location: locationName,
-				openNum: openNumLocation,
-				totalNum: totalNumLocation
+				openNum: parseInt(openNumLocation),
+				totalNum: parseInt(totalNumLocation)
 			})
 			return false;
 		},
@@ -66,8 +86,8 @@ if (Meteor.isClient) {
 			var locationName = event.target.locationName.value;
 			var floorName = event.target.floorName.value;
 			var level = parseInt(event.target.level.value,10);
-			var openNumFloor = event.target.openNumFloor.value;
-			var totalNumFloor = event.target.totalNumFloor.value;
+			var openNumFloor = parseInt(event.target.openNumFloor.value);
+			var totalNumFloor = parseInt(event.target.totalNumFloor.value);
 			var mapImage = event.target.mapImage.value;
 			FloorList.insert({
 				location: locationName,
@@ -84,11 +104,11 @@ if (Meteor.isClient) {
 			var locationName = event.target.locationName.value;
 			var floorName = event.target.floorName.value;
 			var sensorName = event.target.sensorName.value;
-			var sensorStatus = event.target.sensorStatus.value;
-			var lUsed = event.target.lastUsed.value;
-			var lChecked = event.target.lastChecked.value;
-			var xPosition = event.target.xPosition.value;
-			var yPosition = event.target.yPosition.value;
+			var sensorStatus = parseInt(event.target.sensorStatus.value);
+			var lUsed = parseInt(event.target.lastUsed.value);
+			var lChecked = parseInt(event.target.lastChecked.value);
+			var xPosition = parseInt(event.target.xPosition.value);
+			var yPosition = parseInt(event.target.yPosition.value);
 			var markerImage = event.target.markerImage.value;
 			SensorList.insert({
 				location: locationName,
