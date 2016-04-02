@@ -8,10 +8,16 @@ Sensors = new Mongo.Collection("sensors");
 */
 
 if (Meteor.isClient) {
+
+	Template.body.events({
+		'click .map': function(event) {
+			console.log("(" + event.clientX + "," + event.clientY + ")");
+		}
+	});
+
 	Template.addLibraryForm.events({
 		'submit .newLibrary': function(event) {
 			event.preventDefault();
-			console.log("lol");
 			var libraryName = event.target.libraryName.value;
 			var openNumLibrary = event.target.openNumLibrary.value;
 			var totalNumLibrary = event.target.totalNumLibrary.value;
@@ -24,20 +30,22 @@ if (Meteor.isClient) {
 
 		'submit .newFloor': function(event) {	
 			var libraryName = event.target.libraryName.value;
-			var floorNum = event.target.floorNum.value;
+			var floorName = event.target.floorName.value;
 			var openNumFloor = event.target.openNumFloor.value;
 			var totalNumFloor = event.target.totalNumFloor.value;
 			var mapImage = event.target.mapImage.value;
 			FloorList.insert({
 				library: libraryName,
-				floorName: libraryName + floorNum,
-				map: mapImage,
+				floorName: floorName,
 				openNum: openNumFloor,
-				totalNum: totalNumFloor
+				totalNum: totalNumFloor,
+				map: mapImage
 			})
 		},
 
 		'submit .newSensor': function(event) {
+			var libraryName = event.target.libraryName.value;
+			var floorName = event.target.floorName.value;
 			var sensorName = event.target.sensorName.value;
 			var sensorStatus = event.target.sensorStatus.value;
 			var lUsed = event.target.lastUsed.value;
@@ -46,6 +54,8 @@ if (Meteor.isClient) {
 			var yPosition = event.target.yPosition.value;
 			var markerImage = event.target.markerImage.value;
 			SensorList.insert({
+				library: libraryName,
+				floorName: floorName,
 				sensor: sensorName,
 				status: sensorStatus,
 				lastUsed: lUsed,
