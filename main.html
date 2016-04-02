@@ -39,10 +39,10 @@
 </body>
 
 <template name="tab">
-    <div class="tab_selected">
-      <div class="floor">{{floor}}</div>
-      <div class="fraction">{{openNum}}/{{totalNum}}</div>
-    </div>
+  <div class="tab_{{selected_floor}}">
+    <div class="floor">{{floor}}</div>
+    <div class="fraction">{{openNum}}/{{totalNum}} open</div>
+  </div>
 </template>
 
 <template name="addLibraryForm">

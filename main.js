@@ -5,9 +5,9 @@ FloorList = new Mongo.Collection("floors");
 if (Meteor.isClient) {
 
 	Template.body.helpers({
-		floors: function(event) {
-			var library = "Firestone Library"
-			return FloorList.find({library: library}, {sort: {floor: -1}})
+		floors: function() {
+			var library = "Firestone Library";
+			return FloorList.find({library: library}, {sort: {floor: -1}});
 		}
 	})
 
@@ -17,9 +17,19 @@ if (Meteor.isClient) {
 		}
 	});
 	
+	Template.tab.helpers({		
+		selected_floor: function() {
+			var floor_name = this.floor;
+			var selectedFloor = Session.get('selectedFloor');
+			if (floor_name == selectedFloor) return "selected";
+			else return "unselected";
+		}
+	});
+
 	Template.tab.events({
-		'click .tabs': function(event) {
-			console.log("hi");
+		'click': function(event) {
+			var floor_name = this.floor;
+			Session.set('selectedFloor', floor_name);
 		}
 	})
 
