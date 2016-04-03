@@ -5,9 +5,16 @@ SensorList = new Mongo.Collection("sensors");
 Router.route('/');
 
 update = function() {
-	var locCursor = LocationList.find({location: "Firestone Library"});
-	var loc = locCursor.fetch();
-	locCursor.forEach(function (loc) {
+	FloorList.find().forEach(function (floor) {
+		var openNum = 0;
+		var totalNum = 0;
+		SensorList.find({location: floor.location, floor: floor.floor}).
+		forEach(function (sensor) {
+			openNum += sensor.status;
+			totalNum += 1;
+		})
+	});
+	LocationList.find().forEach(function (loc) {
 		var openNum = 0;
 		var totalNum = 0;
 		FloorList.find({location: loc.location}).
@@ -25,9 +32,11 @@ if (Meteor.isClient) {
 	Session.setDefault('selectedLocation', 'Firestone Library');
 	Session.setDefault('selectedFloor', 'Floor 1');
 
+	/*
 	setInterval(function() {
 		update();
 	}, 60000);
+	*/
 
 	Template.header.helpers({
 		location: function() {
@@ -88,7 +97,7 @@ if (Meteor.isClient) {
 			else return imgNameBase + "Off.png";
 		},
 		get_ypos: function() {
-			if (this.sensortype == 2) return this.yPos + 1.3;
+			if (this.sensortype == 2) return this.yPos + 0.7;
 			else return this.yPos;
 		}
 	});
@@ -168,6 +177,7 @@ if (Meteor.isServer) {
 			SensorList.update({sensor: id}, {$set: {sensortype: type, status: on}});
 			//if (on) SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastUsed: lastC, lastChecked: lastC}});
 			//else SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastChecked: lastC}});
+			update();
 			this.response.writeHead(200, {'Content-Type': 'text/html'});
 			this.response.end('Successful Update\n');
 			}
