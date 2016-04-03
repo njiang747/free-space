@@ -143,7 +143,7 @@ if (Meteor.isClient) {
 			var id = Session.get('selectedMarker');
 			var cur = SensorList.findOne({sensor: id});
 			if (cur.sensortype  == 5) return "N/A";
-			if (cur.status) return 0;
+			if (cur.status) return 0 + " seconds ago";
 			if (cur.lastUsed < 1000) return (cur.lastUsed + " minutes ago");
 			return msToString(Date.now()-cur.lastUsed);
 		},
