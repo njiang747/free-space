@@ -34,6 +34,7 @@ update = function() {
 if (Meteor.isClient) {
 	Session.setDefault('selectedLocation', 'Firestone Library');
 	Session.setDefault('selectedFloor', 'Floor 1');
+	//Session.setDefault('selectedMarker', '23456422341')
 
 	setInterval(function() {
 		update();
@@ -65,6 +66,10 @@ if (Meteor.isClient) {
 	Template.body.events({
 		'click .map': function(event) {
 			console.log("(" + event.clientX + "," + event.clientY + ")");
+		},
+		'mouseover .marker-image': function(event) {
+			var currentMarker = Session.get('selectedMarker')
+			console.log("hi")
 		}
 	});
 	
