@@ -13,31 +13,14 @@
         {{> tab}}
       {{/each}}
     </span>
-    <div class="wrapper">
-
-      <div class="map">
-         <img class="map-image" src="/{{map_image}}">
-      </div>
-
-      {{> icon}}
-      <!--<div class="light" style="top: 50%">
-        <img src="lightOn.png">
-      </div>
-    -->
-
-    </div>
-
+    <span class="map">
+      <img class="map-image" src="/{{map_image}}">
+    </span>
     <span class="stats">
     </span>
   </div>
   {{> addLocationForm}}
 </body>
-
-<template name="icon">
-  <div class="markercontainer" style="top: 50%; left: 50%">
-    <img class="markerimage" src="lightOn.png">
-  </div>
-</template>
 
 <template name="header">
   <div class="title-bar">
