@@ -164,9 +164,10 @@ if (Meteor.isServer) {
 			var id = this.request.body.id;
 			var type = this.request.body.sensortype;
 			var on = this.request.body.on;
-			var lastC = (new Date()).now();
-			if (on) SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastUsed: lastC, lastChecked: lastC}});
-			else SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastChecked: lastC}});
+			//var lastC = (new Date()).now();
+			SensorList.update({sensor: id}, {$set: {sensortype: type, status: on}});
+			//if (on) SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastUsed: lastC, lastChecked: lastC}});
+			//else SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastChecked: lastC}});
 			this.response.writeHead(200, {'Content-Type': 'text/html'});
 			this.response.end('Successful Update\n');
 			}
