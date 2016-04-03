@@ -2,6 +2,12 @@ LocationList = new Mongo.Collection("locations");
 FloorList = new Mongo.Collection("floors");
 SensorList = new Mongo.Collection("sensors");
 
+Router.route('/', function () {
+  this.render('Home', {
+    data: function () { return Items.findOne({_id: this.params._id}); }
+  });
+});
+
 update = function() {
 	var locCursor = LocationList.find({location: "Firestone Library"});
 	var loc = locCursor.fetch();
@@ -103,23 +109,23 @@ if (Meteor.isClient) {
 		'submit .newSensor': function(event) {
 			var locationName = event.target.locationName.value;
 			var floorName = event.target.floorName.value;
-			var sensorName = event.target.sensorName.value;
+			var sensorID = event.target.sensorID.value;
+			var sensorType = event.target.sensorType.value;
 			var sensorStatus = parseInt(event.target.sensorStatus.value);
 			var lUsed = parseInt(event.target.lastUsed.value);
 			var lChecked = parseInt(event.target.lastChecked.value);
 			var xPosition = parseInt(event.target.xPosition.value);
 			var yPosition = parseInt(event.target.yPosition.value);
-			var markerImage = event.target.markerImage.value;
 			SensorList.insert({
 				location: locationName,
 				floor: floorName,
-				sensor: sensorName,
+				sensor: sensorID,
+				sensortype: sensorType,
 				status: sensorStatus,
 				lastUsed: lUsed,
 				lastChecked: lChecked,
 				xPos: xPosition,
-				yPos: yPosition,
-				image: markerImage
+				yPos: yPosition
 			})
 			return false;
 		}
@@ -134,11 +140,12 @@ if (Meteor.isServer) {
 	this.route('request', {
 		where: 'server',
 		action: function() {
-			console.log(this.request.body.id);
-			console.log(this.request.body.sensor);
-			console.log("hi")
+			var id = this.request.body.id;
+			var type = this.request.body.sensortype;
+			var on = this.request.body.on;
+			SensorList.update({sensor: id}, {$set: {sensortype: type, status: on}});
 			this.response.writeHead(200, {'Content-Type': 'text/html'});
-			this.response.end('lol\n');
+			this.response.end('Successful Update\n');
 			}
 		})
 	})
