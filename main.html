@@ -15,15 +15,20 @@
     </span>
     <span class="map">
       <img class="map-image" src="/{{map_image}}">
-      {{#each sensors}}
-        {{> marker}}
-      {{/each}}
+        {{#each sensors}}
+          {{> marker}}
+        {{/each}}
     </span>
     <span class="stats">
+      {{> stats}}
     </span>
   </div>
   {{> addLocationForm}}
 </body>
+
+<template name="stats">
+  <div class="stats-text"></div>
+</template>
 
 <template name="header">
   <div class="title-bar">
