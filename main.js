@@ -147,17 +147,33 @@ if (Meteor.isClient) {
 			var lChecked = parseInt(event.target.lastChecked.value);
 			var xPosition = parseInt(event.target.xPosition.value);
 			var yPosition = parseInt(event.target.yPosition.value);
-			SensorList.insert({
-				location: locationName,
-				floor: floorName,
-				sensor: sensorID,
-				sensortype: sensorType,
-				status: sensorStatus,
-				lastUsed: lUsed,
-				lastChecked: lChecked,
-				xPos: xPosition,
-				yPos: yPosition
-			})
+			var exists = SensorList.findOne({sensor: sensorID});
+			if (exists) {
+				SensorList.update({sensor: sensorID},{
+					location: locationName,
+					floor: floorName,
+					sensor: sensorID,
+					sensortype: sensorType,
+					status: sensorStatus,
+					lastUsed: lUsed,
+					lastChecked: lChecked,
+					xPos: xPosition,
+					yPos: yPosition
+				});
+			}
+			else {
+				SensorList.insert({
+					location: locationName,
+					floor: floorName,
+					sensor: sensorID,
+					sensortype: sensorType,
+					status: sensorStatus,
+					lastUsed: lUsed,
+					lastChecked: lChecked,
+					xPos: xPosition,
+					yPos: yPosition
+				});
+			}
 			return false;
 		}
 	});
