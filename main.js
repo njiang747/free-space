@@ -150,11 +150,13 @@ if (Meteor.isClient) {
 			var sensorStatus = parseInt(event.target.sensorStatus.value);
 			var lUsed = parseInt(event.target.lastUsed.value);
 			var lChecked = parseInt(event.target.lastChecked.value);
-			var xPosition = parseInt(event.target.xPosition.value);
-			var yPosition = parseInt(event.target.yPosition.value);
-			var exists = SensorList.findOne({sensor: sensorID});
+			var xPosition = parseFloat(event.target.xPosition.value);
+			var yPosition = parseFloat(event.target.yPosition.value);
+			console.log(sensorID);
+			var exists = SensorList.findOne({'sensor': sensorID});
+			console.log(exists);
 			if (exists) {
-				SensorList.update({sensor: sensorID},{
+				SensorList.update(exists._id, {$set:{
 					location: locationName,
 					floor: floorName,
 					sensor: sensorID,
@@ -164,7 +166,7 @@ if (Meteor.isClient) {
 					lastChecked: lChecked,
 					xPos: xPosition,
 					yPos: yPosition
-				});
+				}});
 			}
 			else {
 				SensorList.insert({
