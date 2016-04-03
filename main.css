@@ -90,7 +90,7 @@ body {
   height: 100%;
   text-align: center;
   display: block;
-  background: #0000FF;
+  background: #FFFFFF;
   border-top: #222222 1px solid;
   border-right: #222222 2px solid;
   position: relative;
@@ -110,10 +110,9 @@ body {
 
 .stats {
   float: left;
-  width: 17.8%;
   height: 100%;
   display: block;
-  background: #00FF00;
+  background: transparent;
   border-top: #222222 1px solid;
 }
 
