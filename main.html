@@ -15,6 +15,9 @@
     </span>
     <span class="map">
       <img class="map-image" src="/{{map_image}}">
+      {{#each sensors}}
+        {{> marker}}
+      {{/each}}
     </span>
     <span class="stats">
     </span>
@@ -34,6 +37,10 @@
     <div class="floor">{{floor}}</div>
     <div class="fraction">{{openNum}}/{{totalNum}} open</div>
   </div>
+</template>
+
+<template name="marker">
+  <img class="marker-image" src="/{{marker_image}}" style="position: absolute; left: {{xPos}}%; top: {{yPos}}%;">
 </template>
 
 <template name="addLocationForm">

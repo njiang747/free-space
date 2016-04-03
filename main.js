@@ -2,11 +2,7 @@ LocationList = new Mongo.Collection("locations");
 FloorList = new Mongo.Collection("floors");
 SensorList = new Mongo.Collection("sensors");
 
-Router.route('/', function () {
-  this.render('Home', {
-    data: function () { return Items.findOne({_id: this.params._id}); }
-  });
-});
+Router.route('/');
 
 update = function() {
 	var locCursor = LocationList.find({location: "Firestone Library"});
@@ -28,6 +24,7 @@ update = function() {
 if (Meteor.isClient) {
 	Session.setDefault('selectedLocation', 'Firestone Library');
 	Session.setDefault('selectedFloor', 'Floor 1');
+	
 	setInterval(function() {
 		update();
 	}, 60000);
@@ -43,6 +40,11 @@ if (Meteor.isClient) {
 		floors: function() {
 			var location = Session.get('selectedLocation');
 			return FloorList.find({location: location}, {sort: {level: -1}});
+		},
+		sensors: function() {
+			var location = Session.get('selectedLocation');
+			var floor = Session.get('selectedFloor');
+			return SensorList.find({location: location, floor: floor});
 		},
 		map_image: function() {
 			var floor = FloorList.findOne({'floor': Session.get('selectedFloor')});
@@ -71,6 +73,21 @@ if (Meteor.isClient) {
 			Session.set('selectedFloor', floor_name);
 		}
 	})
+
+	getImgName = function(sensorType) {
+		if (sensorType == 1) return "light";
+		else if (sensorType == 2) return "sound";
+		else return "";
+	}
+
+	Template.marker.helpers({
+		marker_image: function() {
+			var imgNameBase = getImgName(this.sensortype);
+			var on = this.status;
+			if (on) return imgNameBase + "On.png";
+			else return imgNameBase + "Off.png";
+		}
+	});
 
 	// Update once every X minutes, update sensors -> floors -> location
 
