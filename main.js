@@ -10,8 +10,10 @@ update = function() {
 		var totalNum = 0;
 		SensorList.find({location: floor.location, floor: floor.floor}).
 		forEach(function (sensor) {
-			openNum += 1-sensor.status;
-			totalNum += 1;
+			if (sensor.sensortype  != 5) {
+				openNum += 1-sensor.status;
+				totalNum += 1;
+			}
 		});
 		FloorList.update(floor._id, {
 			$set: {openNum: openNum, totalNum: totalNum}
@@ -91,12 +93,14 @@ if (Meteor.isClient) {
 	getImgName = function(sensorType) {
 		if (sensorType == 1) return "light";
 		else if (sensorType == 2) return "sound";
+		else if (sensorType == 5) return "question.png";
 		else return "";
 	}
 
 	Template.marker.helpers({
 		marker_image: function() {
 			var imgNameBase = getImgName(this.sensortype);
+			if (imgNameBase == "question.png") return imgNameBase;
 			var on = this.status;
 			if (on) return imgNameBase + "On.png";
 			else return imgNameBase + "Off.png";
@@ -107,39 +111,50 @@ if (Meteor.isClient) {
 		}
 	});
 
-	msToMinutes = function(ms) {
-		console.log(ms);
-		return Math.round(ms/1000/60);
+	msToString = function(ms) {
+		var temp = ms/1000;
+		if (temp < 60) return (Math.round(temp) + " seconds ago");
+		temp /= 60;
+		if (temp < 60) return (Math.round(temp) + " minutes ago");
+		else return (Math.round(temp/60) + " hours ago");
+	}
+
+	typeToString = function(type) {
+		if (type == 1) return "Light";
+		else if (type == 2) return "Sound";
+		else if (type == 5) return "No Sensor";
+		else return "";
 	}
 
 	Template.statsTemp.helpers({
 		sensor_type: function() {
 			var id = Session.get('selectedMarker');
 			var cur = SensorList.findOne({sensor: id});
-			return cur.sensortype;
+			return typeToString(cur.sensortype);
 		},
 		status: function() {
 			var id = Session.get('selectedMarker');
 			var cur = SensorList.findOne({sensor: id});
+			if (cur.sensortype  == 5) return "Unavailable";
 			if (cur.status) return "In-Use";
 			else return "Open";
 		},
 		last_used: function() {
 			var id = Session.get('selectedMarker');
 			var cur = SensorList.findOne({sensor: id});
+			if (cur.sensortype  == 5) return "N/A";
 			if (cur.status) return 0;
-			if (cur.lastUsed < 1000) return cur.lastUsed;
-			return msToMinutes(Date.now()-cur.lastUsed);
+			if (cur.lastUsed < 1000) return (cur.lastUsed + " minutes ago");
+			return msToString(Date.now()-cur.lastUsed);
 		},
 		last_checked: function() {
 			var id = Session.get('selectedMarker');
 			var cur = SensorList.findOne({sensor: id});
-			if (cur.lastChecked < 1000) return cur.lastChecked;
-			return msToMinutes(Date.now()-cur.lastChecked);
+			if (cur.sensortype  == 5) return "N/A";
+			if (cur.lastChecked < 1000) return cur.lastChecked + " minutes ago";
+			return msToString(Date.now()-cur.lastChecked);
 		}
 	});
-
-	// Update once every X minutes, update sensors -> floors -> location
 
 	Template.addLocationForm.events({
 		'submit .newLocation': function(event) {
