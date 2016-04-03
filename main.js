@@ -88,7 +88,7 @@ if (Meteor.isClient) {
 			else return imgNameBase + "Off.png";
 		},
 		get_ypos: function() {
-			if (this.status == 2) return this.yPos + 1;
+			if (this.sensortype == 2) return this.yPos + 1;
 			else return this.yPos;
 		}
 	});
