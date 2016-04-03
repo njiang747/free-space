@@ -118,6 +118,8 @@ body {
 
 
 .stats-text {
+  margin: 30px 10px;
+  font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   color: white;
 }
 

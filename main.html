@@ -20,14 +20,17 @@
         {{/each}}
     </span>
     <span class="stats">
-      {{> stats}}
+      {{> statsTemp}}
     </span>
   </div>
-  {{> addLocationForm}}
+  <!-- {{> addLocationForm}} -->
 </body>
 
-<template name="stats">
-  <div class="stats-text"></div>
+<template name="statsTemp">
+    <div class="stats-text">Sensor Type: {{sensor_type}}</div>
+    <div class="stats-text">Current Status: {{status}}</div>
+    <div class="stats-text">Last-Used: {{last_used}} minutes ago</div>
+    <div class="stats-text">Last-Checked: {{last_checked}} minutes ago</div>
 </template>
 
 <template name="header">

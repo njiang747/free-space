@@ -34,7 +34,7 @@ update = function() {
 if (Meteor.isClient) {
 	Session.setDefault('selectedLocation', 'Firestone Library');
 	Session.setDefault('selectedFloor', 'Floor 1');
-	//Session.setDefault('selectedMarker', '23456422341')
+	Session.setDefault('selectedMarker', '236a5a068fb7bdee')
 
 	setInterval(function() {
 		update();
@@ -43,7 +43,7 @@ if (Meteor.isClient) {
 	Template.header.helpers({
 		location: function() {
 			var location = Session.get('selectedLocation');
-			return LocationList.findOne({'location': location});
+			return LocationList.findOne({location: location});
 		}
 	})
 	
@@ -68,8 +68,7 @@ if (Meteor.isClient) {
 			console.log("(" + event.clientX + "," + event.clientY + ")");
 		},
 		'mouseover .marker-image': function(event) {
-			var currentMarker = Session.get('selectedMarker')
-			console.log("hi")
+			Session.set('selectedMarker', this.sensor);
 		}
 	});
 	
@@ -105,6 +104,38 @@ if (Meteor.isClient) {
 		get_ypos: function() {
 			if (this.sensortype == 2) return this.yPos + 0.7;
 			else return this.yPos;
+		}
+	});
+
+	msToMinutes = function(ms) {
+		console.log(ms);
+		return Math.round(ms/1000/60);
+	}
+
+	Template.statsTemp.helpers({
+		sensor_type: function() {
+			var id = Session.get('selectedMarker');
+			var cur = SensorList.findOne({sensor: id});
+			return cur.sensortype;
+		},
+		status: function() {
+			var id = Session.get('selectedMarker');
+			var cur = SensorList.findOne({sensor: id});
+			if (cur.status) return "In-Use";
+			else return "Open";
+		},
+		last_used: function() {
+			var id = Session.get('selectedMarker');
+			var cur = SensorList.findOne({sensor: id});
+			if (cur.status) return 0;
+			if (cur.lastUsed < 1000) return cur.lastUsed;
+			return msToMinutes(Date.now()-cur.lastUsed);
+		},
+		last_checked: function() {
+			var id = Session.get('selectedMarker');
+			var cur = SensorList.findOne({sensor: id});
+			if (cur.lastChecked < 1000) return cur.lastChecked;
+			return msToMinutes(Date.now()-cur.lastChecked);
 		}
 	});
 
@@ -197,10 +228,10 @@ if (Meteor.isServer) {
 			var id = this.request.body.id;
 			var type = this.request.body.sensortype;
 			var on = this.request.body.on;
-			//var lastC = (new Date()).now();
+			var lastC = Date.now();
 			SensorList.update({sensor: id}, {$set: {sensortype: type, status: on}});
-			//if (on) SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastUsed: lastC, lastChecked: lastC}});
-			//else SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastChecked: lastC}});
+			if (on) SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastUsed: lastC, lastChecked: lastC}});
+			else SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastChecked: lastC}});
 			update();
 			this.response.writeHead(200, {'Content-Type': 'text/html'});
 			this.response.end('Successful Update\n');
