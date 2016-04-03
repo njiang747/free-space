@@ -24,7 +24,7 @@ update = function() {
 if (Meteor.isClient) {
 	Session.setDefault('selectedLocation', 'Firestone Library');
 	Session.setDefault('selectedFloor', 'Floor 1');
-	
+
 	setInterval(function() {
 		update();
 	}, 60000);
@@ -86,6 +86,10 @@ if (Meteor.isClient) {
 			var on = this.status;
 			if (on) return imgNameBase + "On.png";
 			else return imgNameBase + "Off.png";
+		},
+		get_ypos: function() {
+			if (this.status == 2) return this.yPos + 1;
+			else return this.yPos;
 		}
 	});
 
@@ -160,7 +164,9 @@ if (Meteor.isServer) {
 			var id = this.request.body.id;
 			var type = this.request.body.sensortype;
 			var on = this.request.body.on;
-			SensorList.update({sensor: id}, {$set: {sensortype: type, status: on}});
+			var lastC = (new Date()).now();
+			if (on) SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastUsed: lastC, lastChecked: lastC}});
+			else SensorList.update({sensor: id}, {$set: {sensortype: type, status: on, lastChecked: lastC}});
 			this.response.writeHead(200, {'Content-Type': 'text/html'});
 			this.response.end('Successful Update\n');
 			}
