@@ -110,10 +110,10 @@ body {
 
 .stats {
   float: left;
-  width: 18%;
+  width: 17.8%;
   height: 100%;
   display: block;
-  background: transparent;
+  background: #00FF00;
   border-top: #222222 1px solid;
 }
 
