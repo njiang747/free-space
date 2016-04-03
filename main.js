@@ -130,4 +130,17 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
 
   });
+  Router.map(function() {
+	this.route('request', {
+		where: 'server',
+		action: function() {
+			console.log(this.request.body.id);
+			console.log(this.request.body.sensor);
+			console.log("hi")
+			this.response.writeHead(200, {'Content-Type': 'text/html'});
+			this.response.end('lol\n');
+			}
+		})
+	})
+
 }
