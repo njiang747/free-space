@@ -24,7 +24,7 @@ if (Meteor.isClient) {
 	Session.setDefault('selectedFloor', 'Floor 1');
 	setInterval(function() {
 		update();
-	}, 10000);
+	}, 60000);
 
 	Template.header.helpers({
 		location: function() {
