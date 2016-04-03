@@ -12,7 +12,10 @@ update = function() {
 		forEach(function (sensor) {
 			openNum += sensor.status;
 			totalNum += 1;
-		})
+		});
+		FloorList.update(floor._id, {
+			$set: {openNum: openNum, totalNum: totalNum}
+		});
 	});
 	LocationList.find().forEach(function (loc) {
 		var openNum = 0;
@@ -32,11 +35,9 @@ if (Meteor.isClient) {
 	Session.setDefault('selectedLocation', 'Firestone Library');
 	Session.setDefault('selectedFloor', 'Floor 1');
 
-	/*
 	setInterval(function() {
 		update();
-	}, 60000);
-	*/
+	}, 5000);
 
 	Template.header.helpers({
 		location: function() {
