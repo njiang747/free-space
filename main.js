@@ -10,7 +10,7 @@ update = function() {
 		var totalNum = 0;
 		SensorList.find({location: floor.location, floor: floor.floor}).
 		forEach(function (sensor) {
-			openNum += sensor.status;
+			openNum += 1-sensor.status;
 			totalNum += 1;
 		});
 		FloorList.update(floor._id, {

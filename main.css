@@ -104,6 +104,7 @@ body {
 }
 
 .marker-image {
+  cursor: pointer;
   width: 1.2%;
   height: auto;
 }
